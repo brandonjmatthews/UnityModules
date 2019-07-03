@@ -33,7 +33,46 @@ namespace Leap.Unity {
     }
 
     public static bool IsPrefab(Component component) {
-      return PrefabUtility.GetPrefabType(component.gameObject) == PrefabType.Prefab;
+      return InternalUtility.GetPrefabType(component.gameObject) == InternalUtility.DeprecatedPrefabType.Prefab;
+    }
+
+    public enum DeprecatedPrefabType {
+      None,
+      Prefab,
+      ModelPrefab,
+      PrefabInstance,
+      ModelPrefabInstance,
+      MissingPrefabInstance,
+      DisconnectedPrefabInstance,
+      DisconnectedModelPrefabInstance,
+    }
+
+    public static DeprecatedPrefabType GetPrefabType(UnityEngine.Object target) {
+      PrefabAssetType objectType = PrefabUtility.GetPrefabAssetType(target);
+      PrefabInstanceStatus objectStatus = PrefabUtility.GetPrefabInstanceStatus(target);
+
+      // PrefabInstanceStatus.NotAPrefab appears to mean 'NotAPrefabInstance' according to Unity documentation
+      // A prefab variant is a modified prefab, they are treating as a regular prefab here
+
+      if (objectType == PrefabAssetType.NotAPrefab && objectStatus == PrefabInstanceStatus.NotAPrefab) {
+        return DeprecatedPrefabType.None;
+      } else if ((objectType == PrefabAssetType.Regular || objectType == PrefabAssetType.Variant) && objectStatus == PrefabInstanceStatus.NotAPrefab) {
+        return DeprecatedPrefabType.Prefab;
+      } else if (objectType == PrefabAssetType.Model && objectStatus == PrefabInstanceStatus.NotAPrefab) {
+        return DeprecatedPrefabType.ModelPrefab;
+      } else if ((objectType == PrefabAssetType.Regular || objectType == PrefabAssetType.Variant) && objectStatus == PrefabInstanceStatus.Connected) {
+        return DeprecatedPrefabType.PrefabInstance;
+      } else if (objectType == PrefabAssetType.Model && objectStatus == PrefabInstanceStatus.Connected) {
+        return DeprecatedPrefabType.ModelPrefabInstance;
+      } else if ((objectType == PrefabAssetType.Regular || objectType == PrefabAssetType.Variant) && objectStatus == PrefabInstanceStatus.Disconnected) {
+        return DeprecatedPrefabType.DisconnectedPrefabInstance;
+      }else if (objectType == PrefabAssetType.Model && objectStatus == PrefabInstanceStatus.Disconnected) {
+        return DeprecatedPrefabType.DisconnectedModelPrefabInstance;
+      } else if (objectType == PrefabAssetType.MissingAsset && objectStatus == PrefabInstanceStatus.MissingAsset) {
+        return DeprecatedPrefabType.MissingPrefabInstance;
+      } else {
+        return DeprecatedPrefabType.None;
+      }
     }
 
     /// <summary>

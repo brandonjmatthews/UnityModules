@@ -29,7 +29,7 @@ namespace Leap.Unity.Recording {
         return;
       }
 
-      bool isPrefab = PrefabUtility.GetPrefabType(target) == PrefabType.Prefab;
+      bool isPrefab = InternalUtility.GetPrefabType(target) == InternalUtility.DeprecatedPrefabType.Prefab;
       EditorGUI.BeginDisabledGroup(isPrefab);
 
       EditorGUILayout.Space();

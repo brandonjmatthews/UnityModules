@@ -102,8 +102,8 @@ namespace Leap.Unity.Attachments {
 
     void Update() {
       #if UNITY_EDITOR
-      PrefabType prefabType = PrefabUtility.GetPrefabType(this.gameObject);
-      if (prefabType == PrefabType.Prefab || prefabType == PrefabType.ModelPrefab) {
+      InternalUtility.DeprecatedPrefabType prefabType = InternalUtility.GetPrefabType(this.gameObject);
+      if (prefabType == InternalUtility.DeprecatedPrefabType.Prefab || prefabType == InternalUtility.DeprecatedPrefabType.ModelPrefab) {
         return;
       }
       #endif
@@ -236,8 +236,8 @@ namespace Leap.Unity.Attachments {
 
 #if UNITY_EDITOR
     private bool getIsPrefab() {
-      PrefabType prefabType = PrefabUtility.GetPrefabType(this.gameObject);
-      return (prefabType == PrefabType.Prefab || prefabType == PrefabType.ModelPrefab);
+      InternalUtility.DeprecatedPrefabType prefabType = InternalUtility.GetPrefabType(this.gameObject);
+      return (prefabType == InternalUtility.DeprecatedPrefabType.Prefab || prefabType == InternalUtility.DeprecatedPrefabType.ModelPrefab);
     }
 #endif
 

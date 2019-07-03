@@ -36,8 +36,8 @@ namespace Leap.Unity.Attachments {
       EditorGUILayout.LabelField("Attachment Transforms", EditorStyles.boldLabel);
 
       // Determine whether the target object is a prefab. AttachmentPoints cannot be edited on prefabs.
-      PrefabType prefabType = PrefabUtility.GetPrefabType(target.gameObject);
-      bool isTargetPrefab = prefabType == PrefabType.Prefab || prefabType == PrefabType.ModelPrefab;
+      InternalUtility.DeprecatedPrefabType prefabType = InternalUtility.GetPrefabType(target.gameObject);
+      bool isTargetPrefab = prefabType == InternalUtility.DeprecatedPrefabType.Prefab || prefabType == InternalUtility.DeprecatedPrefabType.ModelPrefab;
 
       if (isTargetPrefab) {
         EditorGUILayout.HelpBox("Drag the prefab into the scene to make changes to attachment points.", MessageType.Info, true);

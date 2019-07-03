@@ -486,9 +486,9 @@ namespace Leap.Unity {
     }
 
     private bool shouldBeSpawned(UnityEngine.Object model) {
-      var prefabType = PrefabUtility.GetPrefabType(model);
-      if (PrefabUtility.GetPrefabType(this) != PrefabType.Prefab) {
-        return prefabType == PrefabType.Prefab;
+      var prefabType = InternalUtility.GetPrefabType(model);
+      if (InternalUtility.GetPrefabType(this) != InternalUtility.DeprecatedPrefabType.Prefab) {
+        return prefabType == InternalUtility.DeprecatedPrefabType.Prefab;
       } else {
         return PrefabUtility.GetPrefabObject(model) != PrefabUtility.GetPrefabObject(this);
       }

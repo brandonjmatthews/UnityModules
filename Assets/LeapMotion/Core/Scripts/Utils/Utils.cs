@@ -632,9 +632,9 @@ namespace Leap.Unity {
         .Where(o => {
 #if UNITY_EDITOR
           // Exclude prefabs.
-          var prefabType = UnityEditor.PrefabUtility.GetPrefabType(o);
-          if (prefabType == UnityEditor.PrefabType.ModelPrefab
-          || prefabType == UnityEditor.PrefabType.Prefab) {
+          var prefabType = InternalUtility.GetPrefabType(o);
+          if (prefabType == InternalUtility.DeprecatedPrefabType.ModelPrefab
+          || prefabType == InternalUtility.DeprecatedPrefabType.Prefab) {
             return false;
           }
 #endif

@@ -490,7 +490,7 @@ namespace Leap.Unity {
       if (InternalUtility.GetPrefabType(this) != InternalUtility.DeprecatedPrefabType.Prefab) {
         return prefabType == InternalUtility.DeprecatedPrefabType.Prefab;
       } else {
-        return PrefabUtility.GetPrefabObject(model) != PrefabUtility.GetPrefabObject(this);
+        return PrefabUtility.GetPrefabInstanceHandle(model) != PrefabUtility.GetPrefabInstanceHandle(this);
       }
     }
 

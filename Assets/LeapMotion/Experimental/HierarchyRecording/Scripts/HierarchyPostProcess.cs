@@ -168,7 +168,7 @@ namespace Leap.Unity.Recording {
         DestroyImmediate(this);
 
         string prefabPath = Path.Combine(assetFolder.Path, recordingName + ".prefab");
-        PrefabUtility.CreatePrefab(prefabPath.Replace('\\', '/'), myGameObject);
+        PrefabUtility.SaveAsPrefabAsset(myGameObject, prefabPath.Replace('\\', '/'));
       });
     }
 
